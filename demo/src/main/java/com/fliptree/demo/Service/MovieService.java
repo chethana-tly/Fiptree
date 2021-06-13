@@ -31,8 +31,7 @@ public class MovieService {
     }
 
     public Movie getMovie(Number release_year) {
-        Optional<Movie> movies =null; 
-        //this.repository.findByRelease_year(release_year);
+        Optional<Movie> movies = this.repository.findByRelease__Year(release_year);
 
         if (movies.isPresent()) {
             return movies.get();
@@ -42,39 +41,25 @@ public class MovieService {
     }
 
     public List<Movie> getAllMovies() {
-        //https://subsequent-jealous-jersey.glitch.me/mcu.json 
+        // https://subsequent-jealous-jersey.glitch.me/mcu.json
         String url = "http://vvijithnair.mynetgear.com:8000/index.json";
-       // String[] output= this.getRestTemplate().execute(url, HttpMethod.GET,null,null );
-        Movie[] output= this.getRestTemplate().getForObject(url, Movie[].class) ;
-        System.out.println(output.length);
-
-        File resource;
-        try {
-            resource = new ClassPathResource("movies.json").getFile();
-            String text=new String(Files.readAllBytes(resource.toPath()));
-            System.out.println(text);
-        } catch (IOException e) {
-            
-            e.printStackTrace();
-        }
-      
-
-      return Arrays.asList(output);
+        Movie[] output = this.getRestTemplate().getForObject(url, Movie[].class);
+        return Arrays.asList(output);
     }
 
     public Movie saveMovie(Movie movie) {
-       if(movie.getMovie_id()%2==0){
-           movie.setStatus("Even Year Release");
-       }else{
-         movie.setStatus("Odd Year Release");
-       }
-      return this.repository.save(movie);
+        if (movie.getMovie_id() % 2 == 0) {
+            movie.setStatus("Even Year Release");
+        } else {
+            movie.setStatus("Odd Year Release");
+        }
+        return this.repository.save(movie);
     }
 
     public Movie updateMovie(Integer id, String ratingName) {
-        Movie movieTobeUpated= this.repository.findById(id).get();
+        Movie movieTobeUpated = this.repository.findById(id).get();
         movieTobeUpated.setRating_name(ratingName);
-       return this.repository.save(movieTobeUpated);
+        return this.repository.save(movieTobeUpated);
 
     }
 

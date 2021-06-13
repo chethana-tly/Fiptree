@@ -1,8 +1,7 @@
 package com.fliptree.demo.Model;
 
 import java.sql.Date;
-
-import javax.persistence.Column;
+ 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -12,7 +11,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Movie {
     @Id
     Integer movie_id;
- 
+    String title;
+    String phase;
+    String category_name;
+    Number release_year;
+    Number running_time;
+    String rating_name;
+    String disc_format_name;
+    Integer number_discs;
+    String viewing_format_name;
+    String aspect_ratio_name;
+    String status;
+    Date release_date;
+    Number budget;
+    Number gross;
+    Date time_stamp;
 
     public Integer getMovie_id() {
         return movie_id;
@@ -143,20 +156,6 @@ public class Movie {
         this.time_stamp = time_stamp;
     }
 
-    String title;
-    String phase;
-    String category_name;
-    Number release_year;
-    Number running_time;
-    String rating_name;
-    String disc_format_name;
-    Integer number_discs;
-    String viewing_format_name;
-    String aspect_ratio_name;
-    String status;
-    Date release_date;
-    Number budget;
-    Number gross;
-    Date time_stamp;
+ 
 
 }
