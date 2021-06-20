@@ -10,6 +10,6 @@ import com.fliptree.demo.Model.Movie;
 @Repository
 public interface MovieRepository extends CrudRepository<Movie,Integer>{
 
-      Optional<Movie> findByRelease__Year(Number release_year);
+      Optional<Movie> findByReleaseYear(Number releaseYear);
 
  } 

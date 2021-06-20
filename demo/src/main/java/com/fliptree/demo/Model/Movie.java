@@ -1,32 +1,29 @@
 package com.fliptree.demo.Model;
 
 import java.sql.Date;
- 
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Movie {
+
     @Id
     Integer movie_id;
     String title;
     String phase;
     String category_name;
-    Number release_year;
-    Number running_time;
-    String rating_name;
-    String disc_format_name;
-    Integer number_discs;
-    String viewing_format_name;
-    String aspect_ratio_name;
-    String status;
-    Date release_date;
-    Number budget;
-    Number gross;
-    Date time_stamp;
 
+    @Column(name = "release_year", nullable = false)
+    Number releaseYear;
+
+    String running_time;
+    String rating_name;
     public Integer getMovie_id() {
         return movie_id;
     }
@@ -59,20 +56,19 @@ public class Movie {
         this.category_name = category_name;
     }
 
-    @JsonProperty("releaseyear")
-    public Number getRelease_year() {
-        return release_year;
+    public Number getReleaseYear() {
+        return releaseYear;
     }
 
-    public void setRelease_year(Number release_year) {
-        this.release_year = release_year;
+    public void setReleaseYear(Number releaseYear) {
+        this.releaseYear = releaseYear;
     }
 
-    public Number getRunning_time() {
+    public String getRunning_time() {
         return running_time;
     }
 
-    public void setRunning_time(Number running_time) {
+    public void setRunning_time(String running_time) {
         this.running_time = running_time;
     }
 
@@ -124,37 +120,49 @@ public class Movie {
         this.status = status;
     }
 
-    public Date getRelease_date() {
+    public String getRelease_date() {
         return release_date;
     }
 
-    public void setRelease_date(Date release_date) {
+    public void setRelease_date(String release_date) {
         this.release_date = release_date;
     }
 
-    public Number getBudget() {
+    public String getBudget() {
         return budget;
     }
 
-    public void setBudget(Number budget) {
+    public void setBudget(String budget) {
         this.budget = budget;
     }
 
-    public Number getGross() {
+    public String getGross() {
         return gross;
     }
 
-    public void setGross(Number gross) {
+    public void setGross(String gross) {
         this.gross = gross;
     }
 
-    public Date getTime_stamp() {
+    public String getTime_stamp() {
         return time_stamp;
     }
 
-    public void setTime_stamp(Date time_stamp) {
+    public void setTime_stamp(String time_stamp) {
         this.time_stamp = time_stamp;
     }
+
+    String disc_format_name;
+    Integer number_discs;
+    String viewing_format_name;
+    String aspect_ratio_name;
+    String status;
+   // @JsonFormat(pattern="mm dd,yyyy")
+    String release_date;
+    String budget;
+    String gross;
+   
+    String time_stamp;
 
  
 

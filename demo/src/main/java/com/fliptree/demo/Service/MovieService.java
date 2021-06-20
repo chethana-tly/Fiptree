@@ -1,18 +1,28 @@
 package com.fliptree.demo.Service;
 
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fliptree.demo.Model.Movie;
+import com.fliptree.demo.Model.MovieParent;
 import com.fliptree.demo.Repository.MovieRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -31,7 +41,7 @@ public class MovieService {
     }
 
     public Movie getMovie(Number release_year) {
-        Optional<Movie> movies = this.repository.findByRelease__Year(release_year);
+        Optional<Movie> movies = this.repository.findByReleaseYear(release_year);
 
         if (movies.isPresent()) {
             return movies.get();
@@ -41,10 +51,14 @@ public class MovieService {
     }
 
     public List<Movie> getAllMovies() {
-        // https://subsequent-jealous-jersey.glitch.me/mcu.json
-        String url = "http://vvijithnair.mynetgear.com:8000/index.json";
-        Movie[] output = this.getRestTemplate().getForObject(url, Movie[].class);
-        return Arrays.asList(output);
+
+        List<Movie> movieList = null;
+        String url = "https://subsequent-jealous-jersey.glitch.me/mcu.json";
+        MovieParent responseEntity = this.getRestTemplate().getForObject(url, MovieParent.class);
+
+        movieList = responseEntity.getMovies();
+        return movieList;
+
     }
 
     public Movie saveMovie(Movie movie) {
